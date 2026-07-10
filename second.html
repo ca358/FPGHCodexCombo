@@ -336,7 +336,7 @@
     <nav class="level-nav" id="levelNav" aria-label="Game levels"></nav>
     <div class="game-layout">
       <section class="map-panel" aria-labelledby="cityHeading">
-        <img class="map-art" id="mapArt" src="images/geneva-map.svg" alt="Animated three kilometre downtown map of Geneva">
+        <img class="map-art" id="mapArt" src="images/geneva-map.svg" alt="Animated 3.7 kilometre transit and visitor map of Geneva">
         <h2 class="city-heading" id="cityHeading">Geneva</h2>
         <div class="board-shell">
           <div class="board" id="board" role="grid" aria-label="Rotating water pipe puzzle"></div>
@@ -384,31 +384,31 @@
     ];
 
     const levels = [
-      { city:"Geneva", map:"images/geneva-map.svg", note:"Three kilometre downtown water grid", size:4, paths:[
+      { city:"Geneva", map:"images/geneva-map.svg", radius:"3.7", note:"3.7 km visitor-area water grid", size:4, paths:[
         {id:"river",start:"W",end:"E",cells:[[0,0],[0,1],[0,2],[0,3]]},
         {id:"lake",start:"W",end:"E",cells:[[1,0],[1,1],[1,2],[1,3]]},
         {id:"ground",start:"W",end:"E",cells:[[2,0],[2,1],[2,2],[2,3]]},
         {id:"rain",start:"W",end:"E",cells:[[3,0],[3,1],[3,2],[3,3]]}
       ]},
-      { city:"Bern", map:"images/bern-map.svg", note:"Three kilometre Aare core network", size:5, paths:[
+      { city:"Bern", map:"images/bern-map.svg", radius:"2.2", note:"2.2 km Aare visitor-area network", size:5, paths:[
         {id:"river",start:"W",end:"E",cells:[[0,0],[0,1],[1,1],[1,2],[1,3],[1,4]]},
         {id:"lake",start:"W",end:"E",cells:[[2,0],[2,1],[3,1],[3,2],[3,3],[3,4]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[2,2],[3,2],[4,2]]},
         {id:"rain",start:"N",end:"S",cells:[[0,4],[1,4],[2,4],[3,4],[4,4]]}
       ]},
-      { city:"Basel", map:"images/basel-map.svg", note:"Three kilometre Rhine core exchange", size:6, paths:[
+      { city:"Basel", map:"images/basel-map.svg", radius:"2.8", note:"2.8 km Rhine visitor-area exchange", size:6, paths:[
         {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3],[3,4],[4,4],[4,5],[5,5]]},
         {id:"lake",start:"E",end:"S",cells:[[0,5],[0,4],[1,4],[1,3],[2,3],[2,2],[3,2],[3,1],[4,1],[4,0],[5,0]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3]]},
         {id:"rain",start:"N",end:"S",cells:[[0,3],[1,3],[1,4],[2,4],[3,4],[3,3],[4,3],[4,2],[5,2]]}
       ]},
-      { city:"Zurich", map:"images/zurich-map.svg", note:"Three kilometre Limmat core circuit", size:7, paths:[
+      { city:"Zurich", map:"images/zurich-map.svg", radius:"2.1", note:"2.1 km lake-and-Limmat visitor circuit", size:7, paths:[
         {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[1,3],[1,4],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[6,6]]},
         {id:"lake",start:"E",end:"W",cells:[[0,6],[0,5],[1,5],[2,5],[2,4],[3,4],[3,3],[4,3],[4,2],[5,2],[5,1],[6,1],[6,0]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[3,3],[4,3],[4,4],[5,4],[6,4]]},
         {id:"rain",start:"N",end:"S",cells:[[0,4],[1,4],[1,5],[2,5],[3,5],[3,4],[4,4],[4,3],[5,3],[5,2],[6,2]]}
       ]},
-      { city:"Lucerne", map:"images/lucerne-map.svg", note:"Three kilometre lake-outlet master grid", size:8, paths:[
+      { city:"Lucerne", map:"images/lucerne-map.svg", radius:"3.2", note:"3.2 km lake-and-rivers visitor grid", size:8, paths:[
         {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[1,3],[1,4],[2,4],[3,4],[3,5],[2,5],[2,6],[3,6],[4,6],[4,7],[5,7],[6,7],[7,7]]},
         {id:"lake",start:"E",end:"W",cells:[[0,7],[0,6],[1,6],[1,5],[2,5],[3,5],[3,4],[4,4],[4,3],[5,3],[5,2],[6,2],[6,1],[7,1],[7,0]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3],[5,4],[6,4],[6,5],[7,5]]},
@@ -639,7 +639,7 @@
       });
       const map = document.getElementById("mapArt");
       map.src = level.map;
-      map.alt = `Animated three kilometre downtown map of ${level.city}`;
+      map.alt = `Animated ${level.radius} kilometre transit and visitor map of ${level.city}`;
       document.getElementById("cityHeading").textContent = level.city;
       document.getElementById("levelNumber").textContent = `Level ${index+1} of ${levels.length}`;
       document.getElementById("levelTitle").textContent = level.city;
