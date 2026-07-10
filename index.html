@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geneva, Switzerland</title>
+  <style>
+    :root {
+      --blue: #1f5f9f;
+      --deep-blue: #123b63;
+      --pale-blue: #eaf4ff;
+      --white: #ffffff;
+      --line: rgba(31, 95, 159, 0.26);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, transparent 24px, var(--line) 25px, transparent 26px),
+        linear-gradient(225deg, transparent 24px, var(--line) 25px, transparent 26px),
+        linear-gradient(180deg, var(--white), var(--pale-blue));
+      background-size: 56px 56px, 56px 56px, auto;
+      color: var(--deep-blue);
+      font-family: Georgia, "Times New Roman", serif;
+      padding: 24px;
+    }
+
+    main {
+      width: min(680px, 100%);
+      padding: 48px 36px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid var(--blue);
+      outline: 8px double rgba(31, 95, 159, 0.18);
+      text-align: center;
+      box-shadow: 0 18px 44px rgba(18, 59, 99, 0.15);
+    }
+
+    .deco-mark {
+      width: 140px;
+      height: 18px;
+      margin: 0 auto 24px;
+      border-top: 2px solid var(--blue);
+      border-bottom: 2px solid var(--blue);
+      position: relative;
+    }
+
+    .deco-mark::before,
+    .deco-mark::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--blue);
+      background: var(--white);
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .deco-mark::before {
+      left: 18px;
+    }
+
+    .deco-mark::after {
+      right: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--blue);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      font-size: clamp(2rem, 7vw, 4rem);
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    p {
+      max-width: 540px;
+      margin: 22px auto 32px;
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    button {
+      min-height: 48px;
+      padding: 0 28px;
+      border: 2px solid var(--blue);
+      background: var(--blue);
+      color: var(--white);
+      cursor: pointer;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: var(--white);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="deco-mark" aria-hidden="true"></div>
+    <h1>Geneva, Switzerland</h1>
+    <p>
+      Set beside Lake Geneva and framed by the Alps, Geneva is known for its
+      international spirit, graceful lakeside promenades, and crisp Swiss elegance.
+    </p>
+    <button type="button" id="genevaButton">Say Hello</button>
+  </main>
+
+  <script>
+    document.getElementById("genevaButton").addEventListener("click", function () {
+      alert("Hello Geneva");
+    });
+  </script>
+</body>
+</html>
