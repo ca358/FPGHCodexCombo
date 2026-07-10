@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swiss Waterworks</title>
+  <style>
+    :root {
+      --ink: #103b61;
+      --blue: #1769aa;
+      --blue-dark: #0b3558;
+      --blue-pale: #eaf6ff;
+      --white: #fff;
+      --gold: #e6b84b;
+      --shadow: rgba(11, 53, 88, .2);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: #fff;
+      background-image:
+        url("images/wave-pattern.svg"),
+        linear-gradient(180deg, #fff, #e7f4ff);
+      background-position: 0 0, 0 0;
+      background-size: 240px 96px, auto;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      animation: page-wave 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes page-wave {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 240px 14px, 0 0; }
+    }
+
+    button, a { font: inherit; }
+
+    .topbar {
+      border-bottom: 4px double rgba(23,105,170,.42);
+      background: rgba(255,255,255,.94);
+    }
+
+    .topbar-inner {
+      width: min(1200px, calc(100% - 32px));
+      min-height: 88px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      position: relative;
+      flex: 0 0 auto;
+      border: 2px solid var(--blue);
+      transform: rotate(45deg);
+    }
+
+    .brand-mark::before, .brand-mark::after {
+      content: "";
+      position: absolute;
+      background: var(--blue);
+    }
+
+    .brand-mark::before { width: 22px; height: 4px; left: 8px; top: 17px; }
+    .brand-mark::after { width: 4px; height: 22px; left: 17px; top: 8px; }
+    .brand p, .brand h1 { margin: 0; }
+    .brand p { color: var(--blue); font-size: .72rem; font-weight: 700; text-transform: uppercase; }
+
+    .brand h1 {
+      color: var(--blue-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      text-transform: uppercase;
+    }
+
+    .back-link, .control-button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      background: var(--white);
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .back-link:hover, .back-link:focus-visible,
+    .control-button:hover, .control-button:focus-visible,
+    .control-button.primary { color: #fff; background: var(--blue); }
+    .control-button.primary:hover, .control-button.primary:focus-visible { color: var(--blue); background: #fff; }
+
+    main { width: min(1200px, calc(100% - 32px)); margin: 28px auto 48px; }
+
+    .level-nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border: 2px solid var(--blue);
+      background: #fff;
+      box-shadow: 0 8px 26px var(--shadow);
+    }
+
+    .level-button {
+      min-width: 0;
+      min-height: 64px;
+      padding: 8px 6px;
+      border: 0;
+      border-right: 1px solid rgba(23,105,170,.35);
+      color: var(--ink);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .level-button:last-child { border-right: 0; }
+    .level-button span, .level-button strong { display: block; }
+    .level-button span { font-size: .68rem; font-weight: 700; text-transform: uppercase; }
+    .level-button strong { margin-top: 3px; font-family: Georgia, serif; font-size: clamp(.8rem, 1.6vw, 1rem); text-transform: uppercase; }
+    .level-button:hover, .level-button:focus-visible, .level-button.active { color: #fff; background: var(--blue); }
+    .level-button.complete span::after { content: "  OK"; color: var(--gold); }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(260px, .75fr);
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .map-panel {
+      min-height: 680px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 82px 66px 68px;
+      border: 2px solid var(--blue);
+      background: #dff1ff;
+      box-shadow: 0 18px 42px var(--shadow);
+    }
+
+    .map-panel::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      inset: 14px;
+      border: 1px solid rgba(255,255,255,.92);
+      outline: 1px solid rgba(23,105,170,.42);
+      pointer-events: none;
+    }
+
+    .map-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: .94; }
+
+    .city-heading {
+      position: absolute;
+      z-index: 3;
+      top: 27px;
+      left: 50%;
+      margin: 0;
+      color: var(--blue-dark);
+      font-family: Georgia, serif;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      text-transform: uppercase;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .board-shell {
+      width: min(520px, 100%);
+      position: relative;
+      z-index: 4;
+      padding: 10px;
+      border: 3px double var(--blue-dark);
+      background: rgba(255,255,255,.32);
+      box-shadow: 0 14px 34px rgba(11,53,88,.25);
+    }
+
+    .board {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(var(--size), minmax(0, 1fr));
+      border: 1px solid rgba(23,105,170,.5);
+      background: rgba(234,246,255,.38);
+    }
+
+    .tile {
+      min-width: 0;
+      min-height: 0;
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-right: 1px solid rgba(23,105,170,.25);
+      border-bottom: 1px solid rgba(23,105,170,.25);
+      background: rgba(255,255,255,.3);
+      cursor: pointer;
+    }
+
+    .tile:hover, .tile:focus-visible { z-index: 2; outline: 3px solid var(--gold); outline-offset: -3px; }
+    .tile.empty { cursor: default; background: rgba(255,255,255,.2); }
+
+    .pipe-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      transition: transform 180ms ease;
+      transform: rotate(calc(var(--rotation) * 90deg));
+    }
+
+    .pipe-shadow, .pipe-line, .pipe-shine { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .pipe-shadow { stroke: rgba(11,53,88,.34); stroke-width: 18; }
+    .pipe-line { stroke-width: 11; }
+    .pipe-shine { stroke: rgba(255,255,255,.7); stroke-width: 2; }
+
+    .ports-layer { position: absolute; z-index: 4; inset: 10px; pointer-events: none; }
+
+    .edge-token {
+      width: 48px;
+      height: 48px;
+      position: absolute;
+      left: calc(var(--x) * 1%);
+      top: calc(var(--y) * 1%);
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--blue-dark);
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 4px 12px rgba(11,53,88,.25);
+    }
+
+    .edge-token img { width: 42px; height: 42px; display: block; }
+    .edge-token.side-W { transform: translate(-122%, -50%); }
+    .edge-token.side-E { transform: translate(22%, -50%); }
+    .edge-token.side-N { transform: translate(-50%, -122%); }
+    .edge-token.side-S { transform: translate(-50%, 22%); }
+
+    .side-panel {
+      border-top: 6px double var(--blue);
+      border-bottom: 6px double var(--blue);
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 12px 32px var(--shadow);
+    }
+
+    .panel-section { padding: 20px; border-bottom: 1px solid rgba(23,105,170,.24); }
+    .panel-section:last-child { border-bottom: 0; }
+    .eyebrow { margin: 0 0 6px; color: var(--blue); font-size: .7rem; font-weight: 700; text-transform: uppercase; }
+    #levelTitle { margin: 0; color: var(--blue-dark); font-family: Georgia, serif; font-size: 1.65rem; text-transform: uppercase; }
+    #levelNote { margin: 10px 0 0; font-family: Georgia, serif; line-height: 1.45; }
+
+    .routes { display: grid; gap: 8px; }
+    .route { display: grid; grid-template-columns: 13px 32px minmax(0,1fr) 14px 32px minmax(0,1fr); align-items: center; gap: 5px; min-height: 40px; font-size: .72rem; }
+    .swatch { width: 12px; height: 24px; border: 2px solid rgba(11,53,88,.2); background: var(--route-color); }
+    .route-icon { width: 30px; height: 30px; display: block; border: 1px solid rgba(23,105,170,.3); background: #fff; }
+    .route-arrow { color: var(--blue); text-align: center; }
+    .route.flowing { font-weight: 700; }
+    .route.flowing .swatch { box-shadow: 0 0 0 3px rgba(31,95,159,.15), 0 0 14px var(--route-color); }
+
+    .status-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    #statusText { margin: 0; font-size: .82rem; font-weight: 700; text-transform: uppercase; }
+    .moves { min-width: 70px; color: var(--blue); font-size: .76rem; font-weight: 700; text-align: right; text-transform: uppercase; }
+    .progress-track { height: 8px; overflow: hidden; border: 1px solid var(--blue); background: var(--blue-pale); }
+    .progress-bar { width: 0; height: 100%; background: var(--blue); transition: width 220ms ease; }
+
+    .score-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; border-top: 1px solid rgba(23,105,170,.24); border-left: 1px solid rgba(23,105,170,.24); }
+    .score-item { min-width: 0; padding: 9px 8px; border-right: 1px solid rgba(23,105,170,.24); border-bottom: 1px solid rgba(23,105,170,.24); }
+    .score-item span, .score-item strong { display: block; }
+    .score-item span { color: var(--blue); font-size: .62rem; font-weight: 700; text-transform: uppercase; }
+    .score-item strong { margin-top: 2px; color: var(--blue-dark); font-family: Georgia, serif; font-size: 1.08rem; }
+
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .victory { position: absolute; z-index: 8; inset: 0; display: none; place-items: center; padding: 24px; background: rgba(234,246,255,.84); backdrop-filter: blur(3px); }
+    .victory.show { display: grid; }
+    .victory-inner { width: min(390px,100%); padding: 30px 24px; border: 5px double var(--blue); background: #fff; text-align: center; box-shadow: 0 16px 38px var(--shadow); }
+    .victory-inner h2 { margin: 0; color: var(--blue-dark); font-family: Georgia, serif; font-size: 2rem; text-transform: uppercase; }
+    .victory-inner p { margin: 10px 0; }
+    #victoryPerformance { margin-bottom: 20px; color: var(--blue); font-weight: 700; }
+
+    @media (max-width: 860px) {
+      .game-layout { grid-template-columns: 1fr; }
+      .side-panel { display: grid; grid-template-columns: 1fr 1fr; }
+      .panel-section { border-right: 1px solid rgba(23,105,170,.24); }
+      .panel-section:nth-child(even) { border-right: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar-inner { min-height: 102px; }
+      .brand-mark { width: 34px; height: 34px; }
+      .brand-mark::before { width: 18px; left: 6px; top: 13px; }
+      .brand-mark::after { height: 18px; left: 13px; top: 6px; }
+      .back-link { padding: 0 10px; font-size: .66rem; }
+      main { width: calc(100% - 16px); margin-top: 12px; }
+      .level-nav { overflow-x: auto; grid-template-columns: repeat(5, minmax(92px,1fr)); }
+      .map-panel { min-height: 0; padding: 74px 18px 48px; }
+      .board-shell { padding: 6px; }
+      .ports-layer { inset: 6px; }
+      .edge-token { width: 38px; height: 38px; }
+      .edge-token img { width: 33px; height: 33px; }
+      .side-panel { display: block; }
+      .panel-section { border-right: 0; }
+      .pipe-shadow { stroke-width: 21; }
+      .pipe-line { stroke-width: 13; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      body { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><div class="brand-mark" aria-hidden="true"></div><div><p>Swiss Civic Water Board</p><h1>Swiss Waterworks</h1></div></div>
+      <a class="back-link" href="index.html">Back to Geneva</a>
+    </div>
+  </header>
+
+  <main>
+    <nav class="level-nav" id="levelNav" aria-label="Game levels"></nav>
+    <div class="game-layout">
+      <section class="map-panel" aria-labelledby="cityHeading">
+        <img class="map-art" id="mapArt" src="images/geneva-map.svg" alt="Animated three kilometre downtown map of Geneva">
+        <h2 class="city-heading" id="cityHeading">Geneva</h2>
+        <div class="board-shell">
+          <div class="board" id="board" role="grid" aria-label="Rotating water pipe puzzle"></div>
+          <div class="ports-layer" id="portsLayer" aria-label="Water sources and destinations"></div>
+        </div>
+        <div class="victory" id="victory" aria-live="polite">
+          <div class="victory-inner">
+            <h2>Water Flowing</h2>
+            <p id="victoryText"></p>
+            <p id="victoryPerformance"></p>
+            <button class="control-button primary" id="continueButton" type="button">Next City</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="panel-section"><p class="eyebrow" id="levelNumber"></p><h2 id="levelTitle"></h2><p id="levelNote"></p></section>
+        <section class="panel-section routes" id="routes" aria-label="Water routes"></section>
+        <section class="panel-section">
+          <div class="status-row"><p id="statusText">0 of 4 routes flowing</p><span class="moves" id="moveCount">0 moves</span></div>
+          <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+          <div class="score-grid">
+            <div class="score-item"><span>Total moves</span><strong id="totalMoves">0</strong></div>
+            <div class="score-item"><span>Best run</span><strong id="bestTotal">--</strong></div>
+            <div class="score-item"><span>Level optimal</span><strong id="optimalMoves">--</strong></div>
+            <div class="score-item"><span>Level best</span><strong id="bestLevel">--</strong></div>
+          </div>
+        </section>
+        <section class="panel-section controls"><button class="control-button" id="restartButton" type="button">Restart</button><button class="control-button primary" id="nextButton" type="button">Next Level</button></section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const DIRECTIONS = ["N", "E", "S", "W"];
+    const DELTAS = { N: [-1,0], E: [0,1], S: [1,0], W: [0,-1] };
+    const OPPOSITE = { N: "S", E: "W", S: "N", W: "E" };
+    const VECTORS = { N: [0,-50], E: [50,0], S: [0,50], W: [-50,0] };
+
+    const routes = [
+      { id:"river", source:"River", target:"Home", color:"#16a5d8", wave:4, sourceIcon:"images/source-river.svg", targetIcon:"images/use-home.svg", sourceStatic:"images/source-river-static.svg", targetStatic:"images/use-home-static.svg" },
+      { id:"lake", source:"Lake", target:"Factory", color:"#285fd1", wave:-6, sourceIcon:"images/source-lake.svg", targetIcon:"images/use-factory.svg", sourceStatic:"images/source-lake-static.svg", targetStatic:"images/use-factory-static.svg" },
+      { id:"ground", source:"Ground", target:"Farm", color:"#d99b25", wave:8, sourceIcon:"images/source-ground.svg", targetIcon:"images/use-farm.svg", sourceStatic:"images/source-ground-static.svg", targetStatic:"images/use-farm-static.svg" },
+      { id:"rain", source:"Rain", target:"Pool", color:"#d24f9b", wave:-10, sourceIcon:"images/source-rain.svg", targetIcon:"images/use-pool.svg", sourceStatic:"images/source-rain-static.svg", targetStatic:"images/use-pool-static.svg" }
+    ];
+
+    const levels = [
+      { city:"Geneva", map:"images/geneva-map.svg", note:"Three kilometre downtown water grid", size:4, paths:[
+        {id:"river",start:"W",end:"E",cells:[[0,0],[0,1],[0,2],[0,3]]},
+        {id:"lake",start:"W",end:"E",cells:[[1,0],[1,1],[1,2],[1,3]]},
+        {id:"ground",start:"W",end:"E",cells:[[2,0],[2,1],[2,2],[2,3]]},
+        {id:"rain",start:"W",end:"E",cells:[[3,0],[3,1],[3,2],[3,3]]}
+      ]},
+      { city:"Bern", map:"images/bern-map.svg", note:"Three kilometre Aare core network", size:5, paths:[
+        {id:"river",start:"W",end:"E",cells:[[0,0],[0,1],[1,1],[1,2],[1,3],[1,4]]},
+        {id:"lake",start:"W",end:"E",cells:[[2,0],[2,1],[3,1],[3,2],[3,3],[3,4]]},
+        {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[2,2],[3,2],[4,2]]},
+        {id:"rain",start:"N",end:"S",cells:[[0,4],[1,4],[2,4],[3,4],[4,4]]}
+      ]},
+      { city:"Basel", map:"images/basel-map.svg", note:"Three kilometre Rhine core exchange", size:6, paths:[
+        {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3],[3,4],[4,4],[4,5],[5,5]]},
+        {id:"lake",start:"E",end:"S",cells:[[0,5],[0,4],[1,4],[1,3],[2,3],[2,2],[3,2],[3,1],[4,1],[4,0],[5,0]]},
+        {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3]]},
+        {id:"rain",start:"N",end:"S",cells:[[0,3],[1,3],[1,4],[2,4],[3,4],[3,3],[4,3],[4,2],[5,2]]}
+      ]},
+      { city:"Zurich", map:"images/zurich-map.svg", note:"Three kilometre Limmat core circuit", size:7, paths:[
+        {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[1,3],[1,4],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[6,6]]},
+        {id:"lake",start:"E",end:"W",cells:[[0,6],[0,5],[1,5],[2,5],[2,4],[3,4],[3,3],[4,3],[4,2],[5,2],[5,1],[6,1],[6,0]]},
+        {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[3,3],[4,3],[4,4],[5,4],[6,4]]},
+        {id:"rain",start:"N",end:"S",cells:[[0,4],[1,4],[1,5],[2,5],[3,5],[3,4],[4,4],[4,3],[5,3],[5,2],[6,2]]}
+      ]},
+      { city:"Lucerne", map:"images/lucerne-map.svg", note:"Three kilometre lake-outlet master grid", size:8, paths:[
+        {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[1,3],[1,4],[2,4],[3,4],[3,5],[2,5],[2,6],[3,6],[4,6],[4,7],[5,7],[6,7],[7,7]]},
+        {id:"lake",start:"E",end:"W",cells:[[0,7],[0,6],[1,6],[1,5],[2,5],[3,5],[3,4],[4,4],[4,3],[5,3],[5,2],[6,2],[6,1],[7,1],[7,0]]},
+        {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3],[5,4],[6,4],[6,5],[7,5]]},
+        {id:"rain",start:"N",end:"S",cells:[[0,5],[1,5],[1,6],[2,6],[3,6],[3,5],[4,5],[4,4],[5,4],[5,3],[6,3],[6,2],[7,2]]}
+      ]}
+    ];
+
+    const board = document.getElementById("board");
+    const portsLayer = document.getElementById("portsLayer");
+    const levelNav = document.getElementById("levelNav");
+    const routeList = document.getElementById("routes");
+    const victory = document.getElementById("victory");
+    let levelIndex = 0;
+    let tiles = [];
+    let moves = 0;
+    let totalMoves = 0;
+    let optimalForLevel = 0;
+    let runRecorded = false;
+    const completed = new Set();
+
+    function readJson(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; }
+    }
+
+    function saveJson(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* Storage may be unavailable. */ }
+    }
+
+    let bestLevels = readJson("swiss-waterworks-level-bests", {});
+    let bestTotal = readJson("swiss-waterworks-best-total", null);
+
+    function buildNavigation() {
+      levelNav.innerHTML = levels.map((level,index) => `<button type="button" class="level-button" data-level="${index}"><span>Level ${index+1}</span><strong>${level.city}</strong></button>`).join("");
+      levelNav.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => loadLevel(Number(button.dataset.level))));
+    }
+
+    function buildRoutes() {
+      routeList.innerHTML = routes.map((route) => `<div class="route" id="route-${route.id}" style="--route-color:${route.color}"><span class="swatch" aria-hidden="true"></span><img class="route-icon" src="${route.sourceStatic}" alt=""><span>${route.source}</span><span class="route-arrow">&gt;</span><img class="route-icon" src="${route.targetStatic}" alt=""><span>${route.target}</span></div>`).join("");
+    }
+
+    function directionBetween(from,to) {
+      const row = to[0]-from[0];
+      const col = to[1]-from[1];
+      if (row === -1) return "N";
+      if (row === 1) return "S";
+      if (col === 1) return "E";
+      return "W";
+    }
+
+    function createTiles(level) {
+      const result = Array.from({length:level.size*level.size},(_,index) => ({row:Math.floor(index/level.size),col:index%level.size,segments:[],rotation:0}));
+      level.paths.forEach((path) => path.cells.forEach((cell,index) => {
+        const previous = index === 0 ? path.start : directionBetween(cell,path.cells[index-1]);
+        const next = index === path.cells.length-1 ? path.end : directionBetween(cell,path.cells[index+1]);
+        result[cell[0]*level.size+cell[1]].segments.push({id:path.id,dirs:[previous,next]});
+      }));
+
+      result.forEach((tile,index) => {
+        if (!tile.segments.length) return;
+        const onlyStraight = tile.segments.every(({dirs:[a,b]}) => OPPOSITE[a] === b);
+        tile.rotation = onlyStraight ? 1 : ((index*3+level.size)%3)+1;
+      });
+      return result;
+    }
+
+    function rotatedDirection(direction,rotation) { return DIRECTIONS[(DIRECTIONS.indexOf(direction)+rotation)%4]; }
+
+    function tileMatchesSolution(tile,rotation) {
+      return tile.segments.every((segment) => {
+        const original = [...segment.dirs].sort().join("");
+        const rotated = segment.dirs.map((dir) => rotatedDirection(dir,rotation)).sort().join("");
+        return original === rotated;
+      });
+    }
+
+    function calculateOptimalMoves() {
+      return tiles.reduce((sum,tile) => {
+        if (!tile.segments.length) return sum;
+        const costs = [0,1,2,3].filter((target) => tileMatchesSolution(tile,target)).map((target) => (target-tile.rotation+4)%4);
+        return sum + Math.min(...costs);
+      },0);
+    }
+
+    function armPath(direction,wave) {
+      const [dx,dy] = VECTORS[direction];
+      const px = -dy/50;
+      const py = dx/50;
+      const mx = 50+dx*.5;
+      const my = 50+dy*.5;
+      return `M50 50 C${50+dx*.16+px*wave} ${50+dy*.16+py*wave} ${50+dx*.34+px*wave} ${50+dy*.34+py*wave} ${mx} ${my} C${50+dx*.66-px*wave} ${50+dy*.66-py*wave} ${50+dx*.84-px*wave} ${50+dy*.84-py*wave} ${50+dx} ${50+dy}`;
+    }
+
+    function pipeSvg(tile) {
+      const layers = tile.segments.map((segment) => {
+        const route = routes.find((item) => item.id === segment.id);
+        const path = segment.dirs.map((direction) => armPath(direction,route.wave)).join(" ");
+        return `<path class="pipe-shadow" d="${path}"></path><path class="pipe-line" d="${path}" stroke="${route.color}"></path><path class="pipe-shine" d="${path}"></path>`;
+      }).join("");
+      return `<svg class="pipe-svg" style="--rotation:${tile.rotation}" viewBox="0 0 100 100" aria-hidden="true">${layers}</svg>`;
+    }
+
+    function renderPorts() {
+      const level = levels[levelIndex];
+      portsLayer.innerHTML = "";
+      const addPort = (cell,side,route,type) => {
+        const token = document.createElement("div");
+        token.className = `edge-token side-${side}`;
+        token.style.setProperty("--x",((cell[1]+.5)/level.size)*100);
+        token.style.setProperty("--y",((cell[0]+.5)/level.size)*100);
+        const label = type === "source" ? `${route.source} source` : `${route.target} destination`;
+        token.setAttribute("aria-label",label);
+        token.title = label;
+        token.innerHTML = `<img src="${type === "source" ? route.sourceIcon : route.targetIcon}" alt="">`;
+        portsLayer.appendChild(token);
+      };
+      level.paths.forEach((path) => {
+        const route = routes.find((item) => item.id === path.id);
+        addPort(path.cells[0],path.start,route,"source");
+        addPort(path.cells.at(-1),path.end,route,"target");
+      });
+    }
+
+    function renderBoard() {
+      const level = levels[levelIndex];
+      board.style.setProperty("--size",level.size);
+      board.innerHTML = "";
+      tiles.forEach((tile,index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = tile.segments.length ? "tile" : "tile empty";
+        button.setAttribute("role","gridcell");
+        button.setAttribute("aria-label",tile.segments.length ? `Rotate pipe at row ${tile.row+1}, column ${tile.col+1}` : `Empty space at row ${tile.row+1}, column ${tile.col+1}`);
+        button.disabled = !tile.segments.length;
+        button.innerHTML = tile.segments.length ? pipeSvg(tile) : "";
+        if (tile.segments.length) button.addEventListener("click",() => rotateTile(index));
+        board.appendChild(button);
+      });
+      renderPorts();
+    }
+
+    function hasConnection(tile,routeId,direction) {
+      return tile.segments.some((segment) => segment.id === routeId && segment.dirs.some((dir) => rotatedDirection(dir,tile.rotation) === direction));
+    }
+
+    function routeIsConnected(path) {
+      const level = levels[levelIndex];
+      const start = path.cells[0];
+      if (!hasConnection(tiles[start[0]*level.size+start[1]],path.id,path.start)) return false;
+      const queue = [start];
+      const visited = new Set([start.join(",")]);
+      while (queue.length) {
+        const [row,col] = queue.shift();
+        const tile = tiles[row*level.size+col];
+        const end = path.cells.at(-1);
+        if (row === end[0] && col === end[1] && hasConnection(tile,path.id,path.end)) return true;
+        DIRECTIONS.forEach((direction) => {
+          if (!hasConnection(tile,path.id,direction)) return;
+          const [dr,dc] = DELTAS[direction];
+          const nr = row+dr;
+          const nc = col+dc;
+          if (nr<0 || nc<0 || nr>=level.size || nc>=level.size) return;
+          if (!hasConnection(tiles[nr*level.size+nc],path.id,OPPOSITE[direction])) return;
+          const key = `${nr},${nc}`;
+          if (!visited.has(key)) { visited.add(key); queue.push([nr,nc]); }
+        });
+      }
+      return false;
+    }
+
+    function updateScoreDisplay() {
+      const city = levels[levelIndex].city;
+      document.getElementById("totalMoves").textContent = totalMoves;
+      document.getElementById("bestTotal").textContent = bestTotal ?? "--";
+      document.getElementById("optimalMoves").textContent = optimalForLevel;
+      document.getElementById("bestLevel").textContent = bestLevels[city] ?? "--";
+    }
+
+    function completeLevel() {
+      const level = levels[levelIndex];
+      completed.add(levelIndex);
+      if (bestLevels[level.city] == null || moves < bestLevels[level.city]) {
+        bestLevels[level.city] = moves;
+        saveJson("swiss-waterworks-level-bests",bestLevels);
+      }
+      if (completed.size === levels.length && !runRecorded) {
+        runRecorded = true;
+        if (bestTotal == null || totalMoves < bestTotal) {
+          bestTotal = totalMoves;
+          saveJson("swiss-waterworks-best-total",bestTotal);
+        }
+      }
+      const difference = moves-optimalForLevel;
+      document.getElementById("victoryText").textContent = `${level.city}'s four routes are connected in ${moves} moves.`;
+      document.getElementById("victoryPerformance").textContent = difference === 0 ? `Optimal solution: ${optimalForLevel} moves.` : `${difference} ${difference === 1 ? "move" : "moves"} above the ${optimalForLevel}-move optimum.`;
+      document.getElementById("continueButton").textContent = completed.size === levels.length && levelIndex === levels.length-1 ? "New Run" : (levelIndex === levels.length-1 ? "Back to Geneva" : "Next City");
+      victory.classList.add("show");
+      updateScoreDisplay();
+    }
+
+    function updateStatus() {
+      const flowing = new Set(levels[levelIndex].paths.filter(routeIsConnected).map((path) => path.id));
+      routes.forEach((route) => document.getElementById(`route-${route.id}`).classList.toggle("flowing",flowing.has(route.id)));
+      document.getElementById("statusText").textContent = `${flowing.size} of 4 routes flowing`;
+      document.getElementById("moveCount").textContent = `${moves} ${moves === 1 ? "move" : "moves"}`;
+      document.getElementById("progressBar").style.width = `${flowing.size*25}%`;
+      updateScoreDisplay();
+      if (flowing.size === 4 && !victory.classList.contains("show")) completeLevel();
+    }
+
+    function rotateTile(index) {
+      tiles[index].rotation = (tiles[index].rotation+1)%4;
+      moves += 1;
+      totalMoves += 1;
+      board.children[index].querySelector(".pipe-svg").style.setProperty("--rotation",tiles[index].rotation);
+      updateStatus();
+    }
+
+    function loadLevel(index) {
+      levelIndex = index;
+      moves = 0;
+      victory.classList.remove("show");
+      const level = levels[index];
+      tiles = createTiles(level);
+      optimalForLevel = calculateOptimalMoves();
+      document.querySelectorAll(".level-button").forEach((button,buttonIndex) => {
+        button.classList.toggle("active",buttonIndex === index);
+        button.classList.toggle("complete",completed.has(buttonIndex));
+      });
+      const map = document.getElementById("mapArt");
+      map.src = level.map;
+      map.alt = `Animated three kilometre downtown map of ${level.city}`;
+      document.getElementById("cityHeading").textContent = level.city;
+      document.getElementById("levelNumber").textContent = `Level ${index+1} of ${levels.length}`;
+      document.getElementById("levelTitle").textContent = level.city;
+      document.getElementById("levelNote").textContent = level.note;
+      document.getElementById("nextButton").textContent = index === levels.length-1 ? "First Level" : "Next Level";
+      renderBoard();
+      updateStatus();
+    }
+
+    function nextLevel() { loadLevel((levelIndex+1)%levels.length); }
+
+    function newRun() {
+      completed.clear();
+      totalMoves = 0;
+      runRecorded = false;
+      loadLevel(0);
+    }
+
+    document.getElementById("restartButton").addEventListener("click",() => loadLevel(levelIndex));
+    document.getElementById("nextButton").addEventListener("click",nextLevel);
+    document.getElementById("continueButton").addEventListener("click",() => completed.size === levels.length && levelIndex === levels.length-1 ? newRun() : nextLevel());
+    buildNavigation();
+    buildRoutes();
+    loadLevel(0);
+  </script>
+</body>
+</html>

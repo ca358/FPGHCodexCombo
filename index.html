@@ -24,11 +24,10 @@
       place-items: center;
       background-color: var(--white);
       background-image:
-        radial-gradient(ellipse 72px 24px at 50% 100%, transparent 67%, var(--line) 69%, var(--line) 72%, transparent 74%),
-        radial-gradient(ellipse 72px 24px at 50% 0%, transparent 67%, var(--line) 69%, var(--line) 72%, transparent 74%),
+        url("images/wave-pattern.svg"),
         linear-gradient(180deg, var(--white), var(--pale-blue));
-      background-position: 0 0, 72px 29px, 0 0;
-      background-size: 144px 58px, 144px 58px, auto;
+      background-position: 0 0, 0 0;
+      background-size: 240px 96px, auto;
       color: var(--deep-blue);
       font-family: Georgia, "Times New Roman", serif;
       padding: 24px;
@@ -36,8 +35,8 @@
     }
 
     @keyframes deco-wave {
-      from { background-position: 0 0, 72px 29px, 0 0; }
-      to { background-position: 72px 8px, 0 21px, 0 0; }
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 240px 14px, 0 0; }
     }
 
     main {
