@@ -11,8 +11,8 @@
       --blue-dark: #0b3558;
       --blue-pale: #eaf6ff;
       --white: #fff;
-      --gold: #e6b84b;
-      --deco-line: rgba(230,184,75,.72);
+      --gold: #65b4df;
+      --deco-line: rgba(23,105,170,.58);
       --shadow: rgba(11, 53, 88, .2);
     }
 
@@ -22,100 +22,13 @@
       min-height: 100vh;
       margin: 0;
       color: var(--ink);
-      background-color: #fff;
-      background-image:
-        url("images/waterbg.png"),
-        linear-gradient(180deg, #fff, #e7f4ff);
-      background-position: 0 0, 0 0;
-      background-size: 1536px 480px, auto;
-      background-repeat: repeat, no-repeat;
-      background-blend-mode: soft-light, normal;
+      background: linear-gradient(180deg, #fff, #e7f4ff);
       font-family: "Trebuchet MS", Arial, sans-serif;
-      animation: page-wave 22s ease-in-out infinite alternate;
-    }
-
-    @keyframes page-wave {
-      from { background-position: 0 0, 0 0; }
-      to { background-position: 180px 18px, 0 0; }
     }
 
     button, a { font: inherit; }
 
-    .topbar {
-      position: relative;
-      border-bottom: 4px double rgba(23,105,170,.42);
-      background: rgba(255,255,255,.94);
-      box-shadow: inset 0 -1px 0 var(--gold), 0 6px 20px rgba(11,53,88,.08);
-    }
-
-    .topbar::before {
-      content: "";
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 7px;
-      border-top: 1px solid var(--deco-line);
-      pointer-events: none;
-    }
-
-    .topbar::after {
-      content: "";
-      width: 14px;
-      height: 14px;
-      position: absolute;
-      left: 50%;
-      bottom: -8px;
-      border: 1px solid var(--gold);
-      background: #fff;
-      transform: translateX(-50%) rotate(45deg);
-      pointer-events: none;
-    }
-
-    .topbar-inner {
-      position: relative;
-      z-index: 1;
-      width: min(1200px, calc(100% - 32px));
-      min-height: 88px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand { display: flex; align-items: center; gap: 14px; }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      position: relative;
-      flex: 0 0 auto;
-      border: 2px solid var(--blue);
-      transform: rotate(45deg);
-    }
-
-    .brand-mark::before, .brand-mark::after {
-      content: "";
-      position: absolute;
-      background: var(--blue);
-    }
-
-    .brand-mark::before { width: 22px; height: 4px; left: 8px; top: 17px; }
-    .brand-mark::after { width: 4px; height: 22px; left: 17px; top: 8px; }
-    .brand p, .brand h1 { margin: 0; }
-    .brand p { color: var(--blue); font-size: .72rem; font-weight: 700; text-transform: uppercase; }
-
-    .brand h1 {
-      color: var(--blue-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.35rem, 3vw, 2rem);
-      text-transform: uppercase;
-      text-shadow: 1px 0 0 rgba(230,184,75,.35);
-    }
-
-    .header-actions { display: flex; align-items: center; gap: 10px; }
-
-    .back-link, .control-button {
+    .control-button {
       position: relative;
       min-height: 42px;
       display: inline-flex;
@@ -130,10 +43,9 @@
       font-weight: 700;
       text-decoration: none;
       text-transform: uppercase;
-      box-shadow: inset 0 0 0 1px rgba(230,184,75,.7);
+      box-shadow: inset 0 0 0 1px rgba(23,105,170,.62);
     }
 
-    .back-link::before, .back-link::after,
     .control-button::before, .control-button::after {
       content: "";
       width: 7px;
@@ -144,25 +56,76 @@
       transform: rotate(45deg);
     }
 
-    .back-link::before, .control-button::before { top: 5px; left: 6px; }
-    .back-link::after, .control-button::after { right: 6px; bottom: 5px; }
-    .music-control { min-width: 100px; }
+    .control-button::before { top: 5px; left: 6px; }
+    .control-button::after { right: 6px; bottom: 5px; }
 
-    .back-link:hover, .back-link:focus-visible,
     .control-button:hover, .control-button:focus-visible,
     .control-button.primary { color: #fff; background: var(--blue); }
     .control-button.primary:hover, .control-button.primary:focus-visible { color: var(--blue); background: #fff; }
 
-    main { width: min(1200px, calc(100% - 32px)); margin: 28px auto 48px; }
+    main {
+      width: min(1320px, calc(100% - 24px));
+      margin: 12px auto 48px;
+      padding: clamp(70px, 6vw, 86px) clamp(30px, 5.5vw, 74px) clamp(52px, 6vw, 84px);
+      position: relative;
+      isolation: isolate;
+      background: url("images/waterbg-web.webp") center / 100% 100% no-repeat;
+    }
+
+    main::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 10% 8% 12%;
+      background: url("images/inner-waves.svg") center / cover no-repeat;
+      pointer-events: none;
+    }
+
+    .splash-actions {
+      position: absolute;
+      z-index: 10;
+      top: clamp(20px, 2.6vw, 32px);
+      right: clamp(28px, 5.5vw, 74px);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .splash-control {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 10px;
+      border: 1px solid rgba(23,105,170,.82);
+      color: var(--blue-dark);
+      background: rgba(255,255,255,.82);
+      cursor: pointer;
+      font-size: .68rem;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 0 1px rgba(101,180,223,.45), 0 3px 8px rgba(11,53,88,.12);
+    }
+
+    .splash-control:hover, .splash-control:focus-visible {
+      color: #fff;
+      background: rgba(23,105,170,.9);
+    }
+
+    .music-note { font-size: .95rem; line-height: 1; }
+    .splash-actions .music-control { min-width: 58px; }
 
     .level-nav {
       position: relative;
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       border: 2px solid var(--blue);
-      background: #fff;
+      background: rgba(255,255,255,.9);
       box-shadow: 0 8px 26px var(--shadow);
-      box-shadow: 0 8px 26px var(--shadow), inset 0 0 0 1px rgba(230,184,75,.66);
+      box-shadow: 0 8px 26px var(--shadow), inset 0 0 0 1px rgba(23,105,170,.56);
     }
 
     .level-button {
@@ -173,9 +136,9 @@
       border: 0;
       border-right: 1px solid rgba(23,105,170,.35);
       color: var(--ink);
-      background: #fff;
+      background: rgba(255,255,255,.9);
       cursor: pointer;
-      box-shadow: inset 0 0 0 1px rgba(230,184,75,.34);
+      box-shadow: inset 0 0 0 1px rgba(23,105,170,.3);
     }
 
     .level-button::after {
@@ -194,7 +157,7 @@
     .level-button span, .level-button strong { display: block; }
     .level-button span { font-size: .68rem; font-weight: 700; text-transform: uppercase; }
     .level-button strong { margin-top: 3px; font-family: Georgia, serif; font-size: clamp(.8rem, 1.6vw, 1rem); text-transform: uppercase; }
-    .level-button:hover, .level-button:focus-visible, .level-button.active { color: #fff; background: var(--blue); }
+    .level-button:hover, .level-button:focus-visible, .level-button.active { color: #fff; background: rgba(23,105,170,.9); }
     .level-button.complete span::after { content: "  OK"; color: var(--gold); }
 
     .game-layout {
@@ -202,7 +165,7 @@
       grid-template-columns: minmax(0, 1.65fr) minmax(260px, .75fr);
       gap: 24px;
       margin-top: 24px;
-      align-items: start;
+      align-items: stretch;
     }
 
     .map-panel {
@@ -215,7 +178,7 @@
       border: 2px solid var(--blue);
       border-style: double;
       background: #dff1ff;
-      box-shadow: 0 18px 42px var(--shadow), inset 0 0 0 1px rgba(230,184,75,.72);
+      box-shadow: 0 18px 42px var(--shadow), inset 0 0 0 1px rgba(23,105,170,.58);
     }
 
     .map-panel::before {
@@ -226,6 +189,7 @@
       border: 1px solid rgba(255,255,255,.92);
       outline: 1px solid rgba(23,105,170,.42);
       pointer-events: none;
+      display: none;
     }
 
     .map-panel::after {
@@ -240,10 +204,11 @@
       background: #dff1ff;
       transform: translateX(-50%) rotate(45deg);
       pointer-events: none;
+      display: none;
     }
 
     .map-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: .94; }
-    .map-art.bern-map { opacity: .68; filter: saturate(.76) contrast(.92); }
+    .map-art.bern-map { opacity: .84; filter: saturate(.9) contrast(.96); }
 
     .city-heading {
       position: absolute;
@@ -268,20 +233,6 @@
       background: rgba(255,255,255,.32);
       box-shadow: 0 14px 34px rgba(11,53,88,.25);
     }
-
-    .board-shell::before, .board-shell::after {
-      content: "";
-      width: 15px;
-      height: 15px;
-      position: absolute;
-      z-index: 6;
-      border: 1px solid var(--gold);
-      background: rgba(255,255,255,.76);
-      transform: rotate(45deg);
-    }
-
-    .board-shell::before { top: -9px; left: -9px; }
-    .board-shell::after { right: -9px; bottom: -9px; }
 
     .board {
       width: 100%;
@@ -350,8 +301,12 @@
       position: relative;
       border-top: 6px double var(--blue);
       border-bottom: 6px double var(--blue);
-      background: rgba(255,255,255,.94);
-      box-shadow: 0 12px 32px var(--shadow), inset 0 0 0 1px rgba(230,184,75,.7);
+      background-color: rgba(255,255,255,.9);
+      background-image: url("images/side-panel-deco.svg");
+      background-position: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      box-shadow: 0 12px 32px var(--shadow), inset 0 0 0 1px rgba(23,105,170,.5);
     }
 
     .side-panel::before, .side-panel::after {
@@ -371,27 +326,31 @@
     .panel-section { padding: 20px; border-bottom: 1px solid rgba(23,105,170,.24); }
     .panel-section:last-child { border-bottom: 0; }
     .eyebrow { margin: 0 0 6px; color: var(--blue); font-size: .7rem; font-weight: 700; text-transform: uppercase; }
-    #levelTitle { margin: 0; color: var(--blue-dark); font-family: Georgia, serif; font-size: 1.65rem; text-transform: uppercase; }
     #levelNote { margin: 10px 0 0; font-family: Georgia, serif; line-height: 1.45; }
+    #levelNote span { display: block; }
+    #levelNote strong { color: var(--blue-dark); text-transform: uppercase; }
 
-    .routes { display: grid; gap: 8px; position: relative; padding-top: 26px; }
-    .routes::before { content: ""; position: absolute; top: 8px; left: 20px; right: 20px; border-top: 1px solid var(--deco-line); }
-    .routes::after { content: ""; width: 8px; height: 8px; position: absolute; top: 4px; left: 50%; border: 1px solid var(--gold); background: #fff; transform: translateX(-50%) rotate(45deg); }
-    .route { display: grid; grid-template-columns: 13px 44px minmax(0,1fr) 14px 44px minmax(0,1fr); align-items: center; gap: 5px; min-height: 50px; font-size: .72rem; }
-    .swatch { width: 12px; height: 24px; border: 2px solid rgba(11,53,88,.2); background: var(--route-color); }
-    .route-icon { width: 42px; height: 42px; display: block; object-fit: contain; border: 1px solid rgba(23,105,170,.3); background: #fff; }
-    .route-arrow { color: var(--blue); text-align: center; }
+    .routes { display: grid; gap: 12px; position: relative; padding-top: 28px; }
+    .routes::before { content: ""; position: absolute; top: 8px; left: 20px; right: 20px; border-top: 2px solid rgba(23,105,170,.42); }
+    .routes::after { content: ""; width: 10px; height: 10px; position: absolute; top: 3px; left: 50%; border: 2px solid var(--gold); background: #fff; transform: translateX(-50%) rotate(45deg); }
+    .route { display: grid; grid-template-columns: minmax(60px,1fr) minmax(62px,.9fr) minmax(60px,1fr); align-items: start; gap: 8px; min-height: 64px; font-size: .72rem; }
+    .route-endpoint { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 700; text-align: center; }
+    .route-icon { width: 42px; height: 42px; display: block; object-fit: contain; border: 2px solid rgba(23,105,170,.48); background: #fff; }
+    .route-pipe { height: 14px; position: relative; display: block; margin-top: 14px; border: 2px solid var(--blue-dark); border-radius: 7px 0 0 7px; background: var(--route-color); box-shadow: inset 0 3px 0 rgba(255,255,255,.55), 0 2px 4px rgba(11,53,88,.2); }
+    .route-pipe::before { content: ""; width: 8px; position: absolute; top: -5px; bottom: -5px; left: -3px; border: 2px solid var(--blue-dark); background: var(--route-color); }
+    .route-pipe::after { content: ""; position: absolute; z-index: 1; top: 50%; right: -12px; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 15px solid var(--blue-dark); transform: translateY(-50%); filter: drop-shadow(1px 1px 0 rgba(255,255,255,.8)); }
+    .route-pipe-head { position: absolute; z-index: 2; top: 50%; right: -8px; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 11px solid var(--route-color); transform: translateY(-50%); }
     .route.flowing { font-weight: 700; }
-    .route.flowing .swatch { box-shadow: 0 0 0 3px rgba(31,95,159,.15), 0 0 14px var(--route-color); }
+    .route.flowing .route-pipe { box-shadow: inset 0 3px 0 rgba(255,255,255,.65), 0 0 14px var(--route-color); }
 
     .status-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
     #statusText { margin: 0; font-size: .82rem; font-weight: 700; text-transform: uppercase; }
-    .moves { min-width: 70px; color: var(--blue); font-size: .76rem; font-weight: 700; text-align: right; text-transform: uppercase; }
+    .moves { min-width: 70px; color: var(--blue); font-size: .76rem; font-weight: 700; text-align: center; text-transform: uppercase; }
     .progress-track { height: 8px; overflow: hidden; border: 1px solid var(--blue); background: var(--blue-pale); }
     .progress-bar { width: 0; height: 100%; background: var(--blue); transition: width 220ms ease; }
 
-    .score-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; border-top: 1px solid rgba(23,105,170,.24); border-left: 1px solid rgba(23,105,170,.24); position: relative; box-shadow: inset 0 0 0 1px rgba(230,184,75,.42); }
-    .score-item { min-width: 0; position: relative; padding: 9px 8px; border-right: 1px solid rgba(23,105,170,.24); border-bottom: 1px solid rgba(23,105,170,.24); }
+    .score-grid { display: grid; grid-template-columns: 1fr 1fr; width: calc(100% - 20px); margin: 16px auto 0; border-top: 1px solid rgba(23,105,170,.24); border-left: 1px solid rgba(23,105,170,.24); position: relative; box-shadow: inset 0 0 0 1px rgba(23,105,170,.38); }
+    .score-item { min-width: 0; position: relative; padding: 9px 12px; border-right: 1px solid rgba(23,105,170,.24); border-bottom: 1px solid rgba(23,105,170,.24); text-align: center; }
     .score-item::after { content: ""; width: 6px; height: 6px; position: absolute; top: 5px; right: 5px; border: 1px solid var(--gold); transform: rotate(45deg); }
     .score-item span, .score-item strong { display: block; }
     .score-item span { color: var(--blue); font-size: .62rem; font-weight: 700; text-transform: uppercase; }
@@ -415,14 +374,9 @@
     }
 
     @media (max-width: 600px) {
-      .topbar-inner { min-height: 102px; }
-      .brand-mark { width: 34px; height: 34px; }
-      .brand-mark::before { width: 18px; left: 6px; top: 13px; }
-      .brand-mark::after { height: 18px; left: 13px; top: 6px; }
-      .back-link { padding: 0 10px; font-size: .66rem; }
-      .header-actions { flex-direction: column; align-items: stretch; gap: 6px; }
-      .music-control { min-height: 34px; }
-      main { width: calc(100% - 16px); margin-top: 12px; }
+      main { width: calc(100% - 8px); margin-top: 4px; padding: 62px 18px 48px; }
+      .splash-actions { top: 20px; right: 18px; }
+      .splash-control { min-height: 28px; padding: 0 8px; font-size: .64rem; }
       .level-nav { overflow-x: auto; grid-template-columns: repeat(5, minmax(92px,1fr)); }
       .map-panel { min-height: 0; padding: 74px 18px 48px; }
       .board-shell { padding: 6px; }
@@ -437,27 +391,20 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
-      body { animation: none; }
+      main::before { background-image: none; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand"><div class="brand-mark" aria-hidden="true"></div><div><p>Swiss Civic Water Board</p><h1>Swiss Hydrological Engineer</h1></div></div>
-      <div class="header-actions">
-        <button class="back-link music-control" id="musicButton" type="button" aria-pressed="false">Music: Off</button>
-        <a class="back-link" href="index.html">Back to Geneva</a>
-      </div>
-    </div>
-  </header>
-
   <main>
+    <div class="splash-actions" aria-label="Page controls">
+      <button class="splash-control music-control" id="musicButton" type="button" aria-pressed="false" aria-label="Turn music on"><span class="music-note" aria-hidden="true">&#9835;</span><span id="musicState">Off</span></button>
+      <a class="splash-control" href="index.html">Home</a>
+    </div>
     <nav class="level-nav" id="levelNav" aria-label="Game levels"></nav>
     <div class="game-layout">
-      <section class="map-panel" aria-labelledby="cityHeading">
+      <section class="map-panel" aria-label="City water puzzle map">
         <img class="map-art" id="mapArt" src="images/geneva-map.svg" alt="Static 3.7 kilometre transit and visitor map of Geneva">
-        <h2 class="city-heading" id="cityHeading">Geneva</h2>
         <div class="board-shell">
           <div class="board" id="board" role="grid" aria-label="Rotating water pipe puzzle"></div>
           <div class="ports-layer" id="portsLayer" aria-label="Water sources and destinations"></div>
@@ -473,7 +420,7 @@
       </section>
 
       <aside class="side-panel">
-        <section class="panel-section"><p class="eyebrow" id="levelNumber"></p><h2 id="levelTitle"></h2><p id="levelNote"></p></section>
+        <section class="panel-section"><p id="levelNote"></p></section>
         <section class="panel-section routes" id="routes" aria-label="Water routes"></section>
         <section class="panel-section">
           <div class="status-row"><p id="statusText">0 of 4 routes flowing</p><span class="moves" id="moveCount">0 moves</span></div>
@@ -497,38 +444,38 @@
     const VECTORS = { N: [0,-50], E: [50,0], S: [0,50], W: [-50,0] };
 
     const routes = [
-      { id:"river", source:"River", target:"Home", color:"#16a5d8", wave:4, sourceIcon:"images/river.png", targetIcon:"images/home.png", sourceStatic:"images/river.png", targetStatic:"images/home.png" },
-      { id:"lake", source:"Lake", target:"Factory", color:"#285fd1", wave:-6, sourceIcon:"images/lake.png", targetIcon:"images/factory.png", sourceStatic:"images/lake.png", targetStatic:"images/factory.png" },
-      { id:"ground", source:"Ground", target:"Farm", color:"#d99b25", wave:8, sourceIcon:"images/ground.png", targetIcon:"images/farm.png", sourceStatic:"images/ground.png", targetStatic:"images/farm.png" },
-      { id:"rain", source:"Rain", target:"Pool", color:"#d24f9b", wave:-10, sourceIcon:"images/rain.png", targetIcon:"images/pool.png", sourceStatic:"images/rain.png", targetStatic:"images/pool.png" }
+      { id:"river", source:"River", target:"Home", color:"#16a5d8", wave:4, sourceIcon:"images/river-web.webp", targetIcon:"images/home-web.webp", sourceStatic:"images/river-web.webp", targetStatic:"images/home-web.webp" },
+      { id:"lake", source:"Lake", target:"Factory", color:"#285fd1", wave:-6, sourceIcon:"images/lake-web.webp", targetIcon:"images/factory-web.webp", sourceStatic:"images/lake-web.webp", targetStatic:"images/factory-web.webp" },
+      { id:"ground", source:"Ground", target:"Farm", color:"#d99b25", wave:8, sourceIcon:"images/ground-web.webp", targetIcon:"images/farm-web.webp", sourceStatic:"images/ground-web.webp", targetStatic:"images/farm-web.webp" },
+      { id:"rain", source:"Rain", target:"Pool", color:"#d24f9b", wave:-10, sourceIcon:"images/rain-web.webp", targetIcon:"images/pool-web.webp", sourceStatic:"images/rain-web.webp", targetStatic:"images/pool-web.webp" }
     ];
 
     const levels = [
-      { city:"Geneva", map:"images/geneva-map.svg", radius:"3.7", note:"3.7 km visitor-area water grid", size:4, paths:[
+      { city:"Geneva", map:"images/geneva-map.svg", radius:"3.7", yearly:"about 50 million m³", daily:"about 258 L/person/day", size:4, paths:[
         {id:"river",start:"W",end:"E",cells:[[0,0],[0,1],[0,2],[0,3]]},
         {id:"lake",start:"W",end:"E",cells:[[1,0],[1,1],[1,2],[1,3]]},
         {id:"ground",start:"W",end:"E",cells:[[2,0],[2,1],[2,2],[2,3]]},
         {id:"rain",start:"W",end:"E",cells:[[3,0],[3,1],[3,2],[3,3]]}
       ]},
-      { city:"Bern", map:"images/bern-map.svg", radius:"2.2", note:"2.2 km Aare visitor-area network", size:5, paths:[
+      { city:"Bern", map:"images/bern-map.svg", radius:"2.6", yearly:"about 8 million m³", daily:"about 151 L/person/day", size:5, paths:[
         {id:"river",start:"W",end:"E",cells:[[0,0],[0,1],[1,1],[1,2],[1,3],[1,4]]},
         {id:"lake",start:"W",end:"E",cells:[[2,0],[2,1],[3,1],[3,2],[3,3],[3,4]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[2,2],[3,2],[4,2]]},
         {id:"rain",start:"N",end:"S",cells:[[0,4],[1,4],[2,4],[3,4],[4,4]]}
       ]},
-      { city:"Basel", map:"images/basel-map.svg", radius:"2.8", note:"2.8 km Rhine visitor-area exchange", size:6, paths:[
+      { city:"Basel", map:"images/basel-map.svg", radius:"2.8", yearly:"about 26 million m³", daily:"217 L/person/day", size:6, paths:[
         {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3],[3,4],[4,4],[4,5],[5,5]]},
         {id:"lake",start:"E",end:"S",cells:[[0,5],[0,4],[1,4],[1,3],[2,3],[2,2],[3,2],[3,1],[4,1],[4,0],[5,0]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3]]},
         {id:"rain",start:"N",end:"S",cells:[[0,3],[1,3],[1,4],[2,4],[3,4],[3,3],[4,3],[4,2],[5,2]]}
       ]},
-      { city:"Zurich", map:"images/zurich-map.svg", radius:"2.1", note:"2.1 km lake-and-Limmat visitor circuit", size:7, paths:[
+      { city:"Zurich", map:"images/zurich-map.svg", radius:"2.1", yearly:"41.08 million m³", daily:"160 L/person/day", size:7, paths:[
         {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[1,3],[1,4],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[6,6]]},
         {id:"lake",start:"E",end:"W",cells:[[0,6],[0,5],[1,5],[2,5],[2,4],[3,4],[3,3],[4,3],[4,2],[5,2],[5,1],[6,1],[6,0]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[3,3],[4,3],[4,4],[5,4],[6,4]]},
         {id:"rain",start:"N",end:"S",cells:[[0,4],[1,4],[1,5],[2,5],[3,5],[3,4],[4,4],[4,3],[5,3],[5,2],[6,2]]}
       ]},
-      { city:"Lucerne", map:"images/lucerne-map.svg", radius:"3.2", note:"3.2 km lake-and-rivers visitor grid", size:8, paths:[
+      { city:"Lucerne", map:"images/lucerne-map.svg", radius:"3.8", yearly:"about 10 million m³", daily:"about 130 L/person/day", size:8, paths:[
         {id:"river",start:"W",end:"S",cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[1,3],[1,4],[2,4],[3,4],[3,5],[2,5],[2,6],[3,6],[4,6],[4,7],[5,7],[6,7],[7,7]]},
         {id:"lake",start:"E",end:"W",cells:[[0,7],[0,6],[1,6],[1,5],[2,5],[3,5],[3,4],[4,4],[4,3],[5,3],[5,2],[6,2],[6,1],[7,1],[7,0]]},
         {id:"ground",start:"N",end:"S",cells:[[0,2],[1,2],[1,1],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3],[5,4],[6,4],[6,5],[7,5]]},
@@ -589,24 +536,33 @@
       musicStep += 1;
     }
 
+    function updateMusicControl(isOn) {
+      document.getElementById("musicState").textContent = isOn ? "On" : "Off";
+      document.getElementById("musicButton").setAttribute("aria-pressed", String(isOn));
+      document.getElementById("musicButton").setAttribute("aria-label", isOn ? "Turn music off" : "Turn music on");
+    }
+
     async function startMusic() {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
       if (!audioContext) audioContext = new AudioContextClass();
-      if (audioContext.state === "suspended") await audioContext.resume();
       if (musicOn) return;
       musicOn = true;
-      scheduleMusicBar();
-      musicTimer = window.setInterval(scheduleMusicBar, 1900);
-      document.getElementById("musicButton").textContent = "Music: On";
-      document.getElementById("musicButton").setAttribute("aria-pressed", "true");
+      updateMusicControl(true);
+      try {
+        if (audioContext.state === "suspended") await audioContext.resume();
+        if (!musicOn) return;
+        scheduleMusicBar();
+        musicTimer = window.setInterval(scheduleMusicBar, 1900);
+      } catch {
+        stopMusic();
+      }
     }
 
     function stopMusic() {
       musicOn = false;
       window.clearInterval(musicTimer);
-      document.getElementById("musicButton").textContent = "Music: Off";
-      document.getElementById("musicButton").setAttribute("aria-pressed", "false");
+      updateMusicControl(false);
     }
 
     function playCompletionChime() {
@@ -632,7 +588,7 @@
     }
 
     function buildRoutes() {
-      routeList.innerHTML = routes.map((route) => `<div class="route" id="route-${route.id}" style="--route-color:${route.color}"><span class="swatch" aria-hidden="true"></span><img class="route-icon" src="${route.sourceStatic}" alt=""><span>${route.source}</span><span class="route-arrow">&gt;</span><img class="route-icon" src="${route.targetStatic}" alt=""><span>${route.target}</span></div>`).join("");
+      routeList.innerHTML = routes.map((route) => `<div class="route" id="route-${route.id}" style="--route-color:${route.color}" aria-label="${route.source} flows to ${route.target}"><span class="route-endpoint"><img class="route-icon" src="${route.sourceStatic}" alt=""><span>${route.source}</span></span><span class="route-pipe" aria-hidden="true"><span class="route-pipe-head"></span></span><span class="route-endpoint target"><img class="route-icon" src="${route.targetStatic}" alt=""><span>${route.target}</span></span></div>`).join("");
     }
 
     function directionBetween(from,to) {
@@ -678,19 +634,26 @@
       },0);
     }
 
-    function armPath(direction,wave) {
+    function armPath(direction,wave,profile) {
       const [dx,dy] = VECTORS[direction];
       const px = -dy/50;
       const py = dx/50;
       const mx = 50+dx*.5;
       const my = 50+dy*.5;
+      if (profile === "bow") {
+        return `M50 50 C${50+dx*.2+px*wave*1.35} ${50+dy*.2+py*wave*1.35} ${50+dx*.72+px*wave*1.35} ${50+dy*.72+py*wave*1.35} ${50+dx} ${50+dy}`;
+      }
+      if (profile === "ripple") {
+        return `M50 50 C${50+dx*.1+px*wave} ${50+dy*.1+py*wave} ${50+dx*.22+px*wave} ${50+dy*.22+py*wave} ${50+dx*.33} ${50+dy*.33} C${50+dx*.43-px*wave} ${50+dy*.43-py*wave} ${50+dx*.57-px*wave} ${50+dy*.57-py*wave} ${50+dx*.67} ${50+dy*.67} C${50+dx*.78+px*wave} ${50+dy*.78+py*wave} ${50+dx*.9+px*wave} ${50+dy*.9+py*wave} ${50+dx} ${50+dy}`;
+      }
       return `M50 50 C${50+dx*.16+px*wave} ${50+dy*.16+py*wave} ${50+dx*.34+px*wave} ${50+dy*.34+py*wave} ${mx} ${my} C${50+dx*.66-px*wave} ${50+dy*.66-py*wave} ${50+dx*.84-px*wave} ${50+dy*.84-py*wave} ${50+dx} ${50+dy}`;
     }
 
     function pipeSvg(tile) {
       const layers = tile.segments.map((segment) => {
         const route = routes.find((item) => item.id === segment.id);
-        const path = segment.dirs.map((direction) => armPath(direction,route.wave)).join(" ");
+        const profile = route.id === "lake" ? "bow" : (route.id === "rain" ? "ripple" : "s-curve");
+        const path = segment.dirs.map((direction) => armPath(direction,route.wave,profile)).join(" ");
         return `<path class="pipe-shadow" d="${path}"></path><path class="pipe-line" d="${path}" stroke="${route.color}"></path><path class="pipe-shine" d="${path}"></path>`;
       }).join("");
       return `<svg class="pipe-svg" style="--rotation:${tile.rotation}" viewBox="0 0 100 100" aria-hidden="true">${layers}</svg>`;
@@ -828,10 +791,7 @@
       map.src = level.map;
       map.alt = `Static ${level.radius} kilometre transit and visitor map of ${level.city}`;
       map.classList.toggle("bern-map", level.city === "Bern");
-      document.getElementById("cityHeading").textContent = level.city;
-      document.getElementById("levelNumber").textContent = `Level ${index+1} of ${levels.length}`;
-      document.getElementById("levelTitle").textContent = level.city;
-      document.getElementById("levelNote").textContent = level.note;
+      document.getElementById("levelNote").innerHTML = `<span><strong>Yearly:</strong> ${level.yearly}</span><span><strong>Daily:</strong> ${level.daily}</span>`;
       document.getElementById("nextButton").textContent = index === levels.length-1 ? "First Level" : "Next Level";
       renderBoard();
       updateStatus();

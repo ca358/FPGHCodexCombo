@@ -25,17 +25,10 @@
       place-items: center;
       overflow-x: hidden;
       background-color: var(--white);
-      background-image:
-        url("images/waterbg.png"),
-        linear-gradient(180deg, var(--white), var(--pale-blue));
-      background-position: 0 0, 0 0;
-      background-size: 1536px 480px, auto;
-      background-repeat: repeat, no-repeat;
-      background-blend-mode: soft-light, normal;
+      background: linear-gradient(180deg, var(--white), var(--pale-blue));
       color: var(--deep-blue);
       font-family: Georgia, "Times New Roman", serif;
       padding: 24px;
-      animation: deco-wave 20s ease-in-out infinite alternate;
     }
 
     .splash-wrap {
@@ -44,15 +37,14 @@
       isolation: isolate;
     }
 
-    @keyframes deco-wave {
-      from { background-position: 0 0, 0 0; }
-      to { background-position: 180px 18px, 0 0; }
-    }
-
     main {
       width: 100%;
       padding: 48px 36px;
-      background: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.84);
+      background-image: url("images/waterbg-web.webp");
+      background-position: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
       border: 2px solid var(--blue);
       outline: 8px double rgba(31, 95, 159, 0.18);
       text-align: center;
@@ -61,7 +53,19 @@
       z-index: 2;
     }
 
-    main::before,
+    main > * { position: relative; z-index: 2; }
+
+    main::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 15% 12% 18%;
+      border: 0;
+      background: url("images/inner-waves.svg") center / cover no-repeat;
+      transform: none;
+      pointer-events: none;
+    }
+
     main::after {
       content: "";
       width: 18px;
@@ -72,7 +76,6 @@
       transform: rotate(45deg);
     }
 
-    main::before { top: -11px; left: 50%; }
     main::after { bottom: -11px; left: 50%; }
 
     .deco-mark {
@@ -294,7 +297,7 @@
       <span class="sr-only" id="helloAnnouncement" aria-live="polite"></span>
     </main>
     <div class="hello-character" id="helloCharacter" role="img" aria-label="A friendly hydrological engineer character saying hello">
-      <img src="images/character.png" alt="">
+      <img src="images/character-web.webp" alt="">
     </div>
   </div>
 

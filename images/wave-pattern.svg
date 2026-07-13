@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="96" viewBox="0 0 240 96">
-  <g fill="none" stroke="#1f5f9f" stroke-linecap="round">
-    <path d="M0 28C20 6 40 6 60 28S100 50 120 28s40-22 60 0 40 22 60 0" stroke-width="2.5" opacity=".18"/>
-    <path d="M-60 76c20-22 40-22 60 0s40 22 60 0 40-22 60 0 40 22 60 0 40-22 60 0 40 22 60 0" stroke-width="2" opacity=".12"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="120" viewBox="0 0 240 120">
+  <g fill="none" stroke-linecap="round">
+    <path d="M-60 72Q0 8 60 72T180 72T300 72" stroke="#1769aa" stroke-width="3" opacity=".2"/>
+    <path d="M-60 83Q0 19 60 83T180 83T300 83" stroke="#65b9e7" stroke-width="3" opacity=".25"/>
+    <path d="M-60 94Q0 30 60 94T180 94T300 94" stroke="#0b4f80" stroke-width="1.5" opacity=".12"/>
+    <path d="M60 10v19M52 20l8-10 8 10M180 10v19m-8-9 8-10 8 10" stroke="#65b4df" stroke-width="1.5" opacity=".28"/>
   </g>
 </svg>

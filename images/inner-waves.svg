@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="none">
+  <defs>
+    <pattern id="decoWaves" width="240" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke-linecap="round">
+        <path d="M-60 72Q0 8 60 72T180 72T300 72" stroke="#1769aa" stroke-width="3" opacity=".20"/>
+        <path d="M-60 83Q0 19 60 83T180 83T300 83" stroke="#65b9e7" stroke-width="3" opacity=".25"/>
+        <path d="M-60 94Q0 30 60 94T180 94T300 94" stroke="#0b4f80" stroke-width="1.5" opacity=".12"/>
+        <path d="M60 10v19M52 20l8-10 8 10" stroke="#65b4df" stroke-width="1.5" opacity=".28"/>
+      </g>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity="0"/><stop offset=".24" stop-color="#fff"/><stop offset=".8" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="innerFade"><rect width="1200" height="720" fill="url(#fade)"/></mask>
+  </defs>
+  <g mask="url(#innerFade)">
+    <rect x="-240" width="1440" height="720" fill="url(#decoWaves)">
+      <animate attributeName="x" values="-240;0" dur="18s" repeatCount="indefinite"/>
+    </rect>
+    <g fill="none" stroke="#1769aa" opacity=".10">
+      <path d="M-160 174H1360M-160 546H1360" stroke-width="2"/>
+      <path d="M600 70 720 174 600 278 480 174ZM600 442 720 546 600 650 480 546"/>
+      <animateTransform attributeName="transform" type="translate" values="-35 0;35 0;-35 0" dur="27s" repeatCount="indefinite"/>
+    </g>
+    <g fill="none" stroke="#1769aa" stroke-width="1.5" opacity=".15">
+      <path d="M-60 360Q60 250 180 360T420 360T660 360T900 360T1140 360T1380 360"/>
+      <animateTransform attributeName="transform" type="translate" values="0 8;-120 -8;0 8" dur="33s" repeatCount="indefinite"/>
+    </g>
+  </g>
+</svg>

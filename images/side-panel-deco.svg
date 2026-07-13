@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 960" preserveAspectRatio="none">
+  <defs>
+    <g id="lotus" fill="none" stroke="#1769aa" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 34V60M24 34C14 31 9 22 12 12c7 3 11 10 12 22M24 34c10-3 15-12 12-22-7 3-11 10-12 22M24 31c-6-8-5-18 0-25 5 7 6 17 0 25"/>
+      <path d="M15 60h18M12 64h24M16 50h16"/>
+    </g>
+    <pattern id="lotusField" width="48" height="72" patternUnits="userSpaceOnUse">
+      <use href="#lotus" stroke-width="1" opacity=".09"/>
+      <path d="M0 68h48M4 70h40" stroke="#65b4df" stroke-width=".7" opacity=".08"/>
+    </pattern>
+    <linearGradient id="wash" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".9"/><stop offset=".5" stop-color="#eaf6ff" stop-opacity=".82"/><stop offset="1" stop-color="#fff" stop-opacity=".9"/></linearGradient>
+  </defs>
+  <rect width="360" height="960" fill="url(#wash)"/>
+  <rect width="360" height="960" fill="url(#lotusField)"/>
+  <g fill="none" stroke="#1769aa" opacity=".2">
+    <path d="M10 120V10h108M350 120V10H242M10 840v110h108M350 840v110H242" stroke-width="4"/>
+    <path d="M22 104V22h82M338 104V22h-82M22 856v82h82M338 856v82h-82" stroke-width="1.5"/>
+    <circle cx="180" cy="42" r="11" fill="#65b4df" opacity=".35"/>
+    <path d="M169 42h-65M191 42h65M110 42l22-18M110 42l22 18M250 42l-22-18M250 42l-22 18M180 53v34" stroke-width="2"/>
+    <use href="#lotus" transform="translate(156 870) scale(1 1.05)" stroke-width="1.8"/>
+  </g>
+  <g fill="none" stroke="#65b4df" opacity=".16"><path d="M0 252h52v14h24M360 694h-52v14h-24" stroke-width="2"/></g>
+</svg>
